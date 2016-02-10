@@ -2,6 +2,7 @@
   "name": "adrianfalleiro/slim-cli-runner",
   "type" : "library",
   "license": "MIT",
+  "keywords": ["slim", "cli"],
   "authors": [
     {
       "name": "Adrian Falleiro",
@@ -10,7 +11,7 @@
   ],
     "autoload": {
         "psr-4": {
-            "\\adrianfalleiro": "src"
+            "adrianfalleiro\\": "src/"
         }
     }
 }
