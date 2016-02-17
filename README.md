@@ -18,7 +18,7 @@ Register the middleware in `middleware.php`
 
 **Define tasks**
 
-Add a new key in `settings.php` called `commands`
+Add a new key in `settings.php` called `commands` and list your tasks.
 
 ```
 'commands' => [
