@@ -28,7 +28,7 @@ Add a new key in `settings.php` called `commands` and list your tasks.
 
 **Run Tasks**
 
-`php /path/to/slim/index.php SampleTask`
+`php /path/to/slim/public/index.php SampleTask`
 
 ## Examples
 
