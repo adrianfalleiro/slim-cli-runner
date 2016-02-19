@@ -26,6 +26,10 @@ Add a new key in `settings.php` called `commands` and list your tasks.
 ],
 ```
 
+**Run Tasks**
+
+`php /path/to/slim/index.php SampleTask`
+
 ## Examples
 
 Examples can be found in the `examples/` folder
