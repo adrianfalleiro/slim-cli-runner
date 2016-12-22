@@ -2,23 +2,49 @@
 
 namespace adrianfalleiro;
 
-class SlimCLIRunner {
+use Interop\Container\ContainerInterface;
 
+/**
+ * Slim PHP 3 CLI task runner
+ *
+ * @package SlimCLIRunner
+ * @author  Adrian Falleiro <adrian@falleiro.com>
+ * @license MIT http://www.opensource.org/licenses/mit-license.php
+ */
+class SlimCLIRunner
+{
+
+    /*
+     * @var \Interop\Container\ContainerInterface 
+     */
     protected $container;
-    
-    public function __construct($container) {
-        $this->container = $container;
-    }  
 
+    /**
+     * Constructor
+     * @param ContainerInterface $container
+     */
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
+
+    /**
+     * Called when the class is invoked
+     * @param $request
+     * @param $response
+     * @param $next
+     */
     public function __invoke($request, $response, $next)
     {
 
-        if (PHP_SAPI !== 'cli') return $next($request, $response);
+        if (PHP_SAPI !== 'cli') {
+            return $next($request, $response);
+        }
 
         global $argv;
 
         $command = $argv[1];
-        $args = array_slice ($argv, 2);
+        $args = array_slice($argv, 2);
         $possible_commands = $this->container->get('commands');
 
 
@@ -26,12 +52,19 @@ class SlimCLIRunner {
             $class = $possible_commands[$command];
 
             // Bail if class doesn't exist
-            if (!class_exists($class)) throw new RuntimeException(sprintf('Class %s does not exist', $class));
+            if (!class_exists($class)) {
+                throw new RuntimeException(sprintf('Class %s does not exist', $class));
+            }
 
-            $cli_task = (new $class($this->container))->command($args);
+            $task_class = new ReflectionClass($class);
 
+            if (!$task_class->hasMethod('command')) {
+                throw new RuntimeException(sprintf('Class %s does not have a command() method', $class));
+            }
+            
+            $task = $task_class->newInstanceArgs([$this->container]);
+            $cli_response = $task->command($args);
             $response->getBody()->write($cli_task . "\n");
-
         } else {
             $response->getBody()->write("Command not found\n");
         }
@@ -39,5 +72,4 @@ class SlimCLIRunner {
         return $response
             ->withStatus(200);
     }
-
 }
