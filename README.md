@@ -6,13 +6,13 @@ Create and run command line tasks for the Slim PHP micro-framework
 
 **Installation**
 
-`composer require adrianfalleiro/slim-cli-runner`
+`composer require adrianfalleiro/slim-cli-runner ^2.0`
 
 **Register Middleware**
 
 Register the middleware in `middleware.php`
 
-`$app->add(\adrianfalleiro\SlimCLIRunner::class);`
+`$app->add(\adrianfalleiro\SlimCLIRunner\SlimCLIRunner::class);`
 
 ## Define and run your tasks
 

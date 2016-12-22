@@ -1,17 +1,31 @@
 {
-  "name": "adrianfalleiro/slim-cli-runner",
-  "type" : "library",
-  "license": "MIT",
-  "keywords": ["slim", "cli"],
-  "authors": [
-    {
-      "name": "Adrian Falleiro",
-      "email": "adrian@falleiro.com"
-    }
-  ],
+    "name": "adrianfalleiro/slim-cli-runner",
+    "type" : "library",
+    "license": "MIT",
+    "description": "Run command line tasks for Slim PHP",        
+    "keywords": ["slim", "cli"],
+    "authors": [
+        {
+            "name": "Adrian Falleiro",
+            "email": "adrian@falleiro.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0",
+        "container-interop/container-interop": "^1.1"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^2.5"
+    },
     "autoload": {
         "psr-4": {
-            "adrianfalleiro\\": "src/"
+            "adrianfalleiro\\SlimCLIRunner\\": "src/"
         }
+    },
+    "scripts": {
+        "test": [
+            "@phpcs"
+        ],
+        "phpcs": "php vendor/bin/phpcs"
     }
 }
