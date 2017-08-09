@@ -2,7 +2,9 @@
 
 namespace adrianfalleiro;
 
-use Interop\Container\ContainerInterface;
+use \Interop\Container\ContainerInterface;
+use \RuntimeException;
+use \ReflectionClass;
 
 /**
  * Slim PHP 3 CLI task runner
@@ -36,7 +38,6 @@ class SlimCLIRunner
      */
     public function __invoke($request, $response, $next)
     {
-
         if (PHP_SAPI !== 'cli') {
             return $next($request, $response);
         }
@@ -64,12 +65,11 @@ class SlimCLIRunner
             
             $task = $task_class->newInstanceArgs([$this->container]);
             $cli_response = $task->command($args);
-            $response->getBody()->write($cli_task . "\n");
+            $response->getBody()->write($cli_response . "\n");
         } else {
             $response->getBody()->write("Command not found\n");
         }
      
-        return $response
-            ->withStatus(200);
+        return $response->withStatus(200);
     }
 }
