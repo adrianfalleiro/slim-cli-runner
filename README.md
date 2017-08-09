@@ -12,13 +12,17 @@ Create and run command line tasks for the Slim PHP micro-framework
 
 Register the middleware in `middleware.php`
 
-`$app->add(\adrianfalleiro\SlimCLIRunner\SlimCLIRunner::class);`
+```
+use \adrianfalleiro\SlimCLIRunner;
+$app->add(SlimCLIRunner::class);
+```
 
 ## Define and run your tasks
 
 **Define tasks**
 
-Add a new key in `settings.php` called `commands` and list your tasks.
+Add a new key in `settings.php` called `commands` and list your tasks.  
+_Keep in mind that you should NOT add this within the 'settings' values_
 
 ```
 'commands' => [
