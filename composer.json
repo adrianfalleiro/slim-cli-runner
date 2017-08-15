@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "adrianfalleiro\\SlimCLIRunner\\": "src/"
+            "adrianfalleiro\\": "src/"
         }
     },
     "scripts": {
