@@ -5,6 +5,7 @@ namespace adrianfalleiro;
 use \Interop\Container\ContainerInterface;
 use \RuntimeException;
 use \ReflectionClass;
+use \Exception;
 
 /**
  * Slim PHP 3 CLI task runner
@@ -48,28 +49,38 @@ class SlimCLIRunner
         $args = array_slice($argv, 2);
         $possible_commands = $this->container->get('commands');
 
+        try {
+            if (array_key_exists($command, $possible_commands)) {
+                $class = $possible_commands[$command];
 
-        if (array_key_exists($command, $possible_commands)) {
-            $class = $possible_commands[$command];
+                // Bail if class doesn't exist
+                if (!class_exists($class)) {
+                    throw new RuntimeException(sprintf('Class %s does not exist', $class));
+                }
 
-            // Bail if class doesn't exist
-            if (!class_exists($class)) {
-                throw new RuntimeException(sprintf('Class %s does not exist', $class));
-            }
+                $task_class = new ReflectionClass($class);
 
-            $task_class = new ReflectionClass($class);
+                if (!$task_class->hasMethod('command')) {
+                    throw new RuntimeException(sprintf('Class %s does not have a command() method', $class));
+                }
 
-            if (!$task_class->hasMethod('command')) {
-                throw new RuntimeException(sprintf('Class %s does not have a command() method', $class));
+                if ($task_class->getConstructor()) {
+                    $task = $task_class->newInstanceArgs([$this->container]);
+                } else {
+                    $task = $task_class->newInstanceWithoutConstructor();
+                }
+                
+                $cli_response = $task->command($args);
+                $response->getBody()->write($cli_response . "\n");
+            } else {
+                $response->getBody()->write("Command not found\n");
             }
             
-            $task = $task_class->newInstanceArgs([$this->container]);
-            $cli_response = $task->command($args);
-            $response->getBody()->write($cli_response . "\n");
-        } else {
-            $response->getBody()->write("Command not found\n");
+            return $response->withStatus(200);
+
+        } catch(Exception $e) {
+            $response->getBody()->write($e->getMessage());
+            return $response->withStatus(500);
         }
-     
-        return $response->withStatus(200);
     }
 }
