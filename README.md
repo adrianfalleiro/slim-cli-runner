@@ -22,7 +22,7 @@ $app->add(\adrianfalleiro\SlimCLIRunner::class);
 
 Tasks are simply classes which have a public `command()` method. 
 
-The dependency container is passed to the constructor and console arguments are passed to the `command()` function.
+The dependency container is passed to the constructor, and console arguments are passed to the `command()` method.
 
 ```
 use \Interop\Container\ContainerInterface;
