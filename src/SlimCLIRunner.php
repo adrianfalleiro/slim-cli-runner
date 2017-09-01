@@ -5,6 +5,7 @@ namespace adrianfalleiro;
 use \Interop\Container\ContainerInterface;
 use \RuntimeException;
 use \ReflectionClass;
+use \ReflectionMethod;
 use \Exception;
 
 /**
@@ -65,17 +66,32 @@ class SlimCLIRunner
                 }
 
                 if ($task_class->getConstructor()) {
-                    $task = $task_class->newInstanceArgs([$this->container]);
+                    $task_construct_method = new ReflectionMethod($class,  '__construct');
+                    $construct_params = $task_construct_method->getParameters();
+
+                    if (count($construct_params) == 0) {
+                        // Create a new instance without any args
+                        $task = $task_class->newInstanceArgs();
+                    } elseif (count($construct_params) == 1) {
+                        // Create a new instance and pass the container by reference, if needed
+                        if ($construct_params[0]->isPassedByReference()) {
+                            $task = $task_class->newInstanceArgs([&$this->container]);
+                        } else {
+                            $task = $task_class->newInstanceArgs([$this->container]);
+                        }
+                    } else {
+                        throw new RuntimeException(sprintf('Class %s has an unsupported __construct method', $class));
+                    }
                 } else {
                     $task = $task_class->newInstanceWithoutConstructor();
                 }
-                
+
                 $cli_response = $task->command($args);
                 $response->getBody()->write($cli_response . "\n");
             } else {
                 $response->getBody()->write("Command not found\n");
             }
-            
+
             return $response->withStatus(200);
 
         } catch(Exception $e) {
