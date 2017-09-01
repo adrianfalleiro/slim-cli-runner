@@ -6,7 +6,7 @@ Create and run command line tasks for the Slim PHP micro-framework
 
 **Installation**
 
-`composer require adrianfalleiro/slim-cli-runner ^2.2`
+`composer require adrianfalleiro/slim-cli-runner ^2.3`
 
 **Register Middleware**
 
