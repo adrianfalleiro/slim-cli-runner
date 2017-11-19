@@ -89,7 +89,7 @@ class SlimCLIRunner
                 $cli_response = $task->command($args);
                 $response->getBody()->write($cli_response);
             } else {
-                $response->getBody()->write("Command not found\n");
+                $response->getBody()->write("Command not found");
             }
 
             return $response->withStatus(200);
