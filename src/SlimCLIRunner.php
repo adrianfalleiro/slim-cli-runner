@@ -48,7 +48,7 @@ class SlimCLIRunner
 
         $command = $argv[1];
         $args = array_slice($argv, 2);
-        $possible_commands = $this->container->get('commands');
+        $possible_commands = $this->container->get('settings')['commands'];
 
         try {
             if (array_key_exists($command, $possible_commands)) {
