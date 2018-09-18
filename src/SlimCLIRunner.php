@@ -19,7 +19,7 @@ class SlimCLIRunner
 {
 
     /*
-     * @var \Interop\Container\ContainerInterface 
+     * @var \Interop\Container\ContainerInterface
      */
     protected $container;
 
