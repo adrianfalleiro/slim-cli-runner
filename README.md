@@ -18,9 +18,9 @@ $app->add(\adrianfalleiro\SlimCLIRunner::class);
 
 ## Define, Register and run your tasks
 
-**Define tasks**
+**Task definition**
 
-Tasks are simply classes which have a public `command()` method. 
+Tasks are simply classes which have a public `command()` method.
 
 The dependency container is passed to the constructor, and console arguments are passed to the `command()` method.
 
@@ -33,7 +33,7 @@ class SampleTask {
     /** @var ContainerInterface */
     protected $container;
 
-    /** 
+    /**
      * Constructor
      *
      * @param ContainerInterface $container
@@ -46,9 +46,9 @@ class SampleTask {
         $this->container = $container;
     }
 
-    /** 
+    /**
      * SampleTask command
-     * 
+     *
      * @param array $args
      * @return void
      */
@@ -56,7 +56,7 @@ class SampleTask {
     {
         // Access items in container
         $settings = $this->container->get('settings');
-        
+
         // Throw if no arguments provided
         if (empty($args)) {
             throw new RuntimeException("No arguments passed to command");
@@ -70,12 +70,15 @@ class SampleTask {
 }
 ```
 
-**Regiser tasks**
+**Tasks registration**
 
-Add a new key in `settings.php` called `commands` and list your tasks.  
+Add a new key in your `settings.php` file called `commands` and list your tasks.  
 _Keep in mind that you should NOT add this within the 'settings' values_
 
 ```
+'settings' => [
+    // ...
+],
 'commands' => [
     'SampleTask' => \Namespace\To\Task::class
 ],
