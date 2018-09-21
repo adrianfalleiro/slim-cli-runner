@@ -1,0 +1,30 @@
+{
+    "name": "adrianfalleiro/example-app",
+    "description": "An example app showing how to configure and use the CLI runner",
+    "keywords": ["microframework", "rest", "router", "psr7", "cli"],
+    "homepage": "https://github.com/adrianfalleiro/slim-cli-runner",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Adrian Falleiro",
+            "email": "adrian@falleiro.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0",
+        "slim/slim": "^3.1",
+        "adrianfalleiro/slim-cli-runner": "^2"
+    },
+    "autoload": {
+        "psr-4": {
+            "ExampleApp\\": "src/"
+        }
+    },
+    "config": {
+        "process-timeout" : 0
+    },
+    "scripts": {
+        "cli": "php public/index.php"
+    }
+
+}
