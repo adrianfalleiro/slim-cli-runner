@@ -6,13 +6,15 @@ Create and run command line tasks for the Slim PHP micro-framework
 
 **Installation**
 
-`composer require adrianfalleiro/slim-cli-runner ^2.4`
+```
+composer require adrianfalleiro/slim-cli-runner ^2.4
+```
 
 **Register Middleware**
 
 Register the middleware in `middleware.php`
 
-```
+```php
 $app->add(\adrianfalleiro\SlimCLIRunner::class);
 ```
 
@@ -24,7 +26,7 @@ Tasks are simply classes which have a public `command()` method.
 
 The dependency container is passed to the constructor, and console arguments are passed to the `command()` method.
 
-```
+```php
 use \Interop\Container\ContainerInterface;
 use \RuntimeException;
 
@@ -75,7 +77,7 @@ class SampleTask {
 Add a new key in your `settings.php` file called `commands` and list your tasks.  
 _Keep in mind that you should NOT add this within the 'settings' values_
 
-```
+```php
 'settings' => [
     // ...
 ],
@@ -86,7 +88,34 @@ _Keep in mind that you should NOT add this within the 'settings' values_
 
 **Run Tasks**
 
-`php /path/to/slim/public/index.php SampleTask argument1 argument2 argument3`
+There are multiple ways of doing this:  
+Directly via commandline:
+
+```
+php /path/to/slim/public/index.php SampleTask argument1 argument2 argument3
+```
+
+Via composer:  
+_composer.json_
+
+```json
+{
+    /*...*/
+    "config": {
+        "process-timeout" : 0
+    },
+    "scripts": {
+        /*...*/
+        "cli": "php public/index.php"
+    }
+}
+```
+
+_The command_
+
+```
+composer cli SampleTask argument1 argument2 argument3
+```
 
 ## Examples
 
