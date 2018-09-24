@@ -26,5 +26,4 @@
     "scripts": {
         "cli": "php public/index.php"
     }
-
 }
