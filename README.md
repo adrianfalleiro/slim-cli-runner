@@ -75,7 +75,8 @@ class SampleTask {
 **Tasks registration**
 
 Add a new key in your `settings.php` file called `commands` and list your tasks.  
-_Keep in mind that you should NOT add this within the 'settings' values_
+_Keep in mind that you should NOT add this within the 'settings' values_  
+To define a default task (For use when no command name is provided) add a new task with `__default` as key
 
 ```php
 'settings' => [

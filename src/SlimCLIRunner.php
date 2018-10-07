@@ -19,7 +19,7 @@ class SlimCLIRunner
 {
 
     /*
-     * @var \Interop\Container\ContainerInterface 
+     * @var \Interop\Container\ContainerInterface
      */
     protected $container;
 
@@ -46,8 +46,14 @@ class SlimCLIRunner
 
         global $argv;
 
-        $command = $argv[1];
-        $args = array_slice($argv, 2);
+        if (count($argv) > 1) {
+            $command = $argv[1];
+            $args = array_slice($argv, 2);
+        } else {
+            $command = '__default';
+            $args = [];
+        }
+
         $possible_commands = $this->container->get('commands');
 
         try {
