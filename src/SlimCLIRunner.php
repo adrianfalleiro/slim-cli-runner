@@ -2,7 +2,7 @@
 
 namespace adrianfalleiro;
 
-use \Interop\Container\ContainerInterface;
+use \Psr\Container\ContainerInterface;
 use \RuntimeException;
 use \ReflectionClass;
 use \ReflectionMethod;
@@ -19,7 +19,7 @@ class SlimCLIRunner
 {
 
     /*
-     * @var \Interop\Container\ContainerInterface
+     * @var \Psr\Container\ContainerInterface
      */
     protected $container;
 
