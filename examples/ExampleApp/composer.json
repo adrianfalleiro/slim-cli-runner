@@ -12,8 +12,8 @@
     ],
     "require": {
         "php": ">=5.5.0",
-        "slim/slim": "^3.1",
-        "adrianfalleiro/slim-cli-runner": "^2"
+        "slim/slim": "^3.10",
+        "adrianfalleiro/slim-cli-runner": "^2.6"
     },
     "autoload": {
         "psr-4": {
