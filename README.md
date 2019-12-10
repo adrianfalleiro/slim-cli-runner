@@ -7,7 +7,7 @@ Create and run command line tasks for the Slim PHP micro-framework
 **Installation**
 
 ```
-composer require adrianfalleiro/slim-cli-runner ^2.5
+composer require adrianfalleiro/slim-cli-runner ^2.6
 ```
 
 **Register Middleware**
@@ -27,7 +27,7 @@ Tasks are simply classes which have a public `command()` method.
 The dependency container is passed to the constructor, and console arguments are passed to the `command()` method.
 
 ```php
-use \Interop\Container\ContainerInterface;
+use \Psr\Container\ContainerInterface;
 use \RuntimeException;
 
 class SampleTask {
@@ -41,7 +41,7 @@ class SampleTask {
      * @param ContainerInterface $container
      * @return void
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct($container)
     {
         // access container classes
         // eg $container->get('redis');
