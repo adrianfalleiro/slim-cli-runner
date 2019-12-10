@@ -1,6 +1,5 @@
 <?php
 
-use \Interop\Container\ContainerInterface;
 use \RuntimeException;
 
 class SampleTask {
@@ -14,7 +13,7 @@ class SampleTask {
      * @param ContainerInterface $container
      * @return void
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct($container)
     {
         // access container classes
         // eg $container->get('redis');
