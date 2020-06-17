@@ -15,7 +15,8 @@ composer require adrianfalleiro/slim-cli-runner ^2.6
 Register the middleware in `middleware.php`
 
 ```php
-$app->add(\adrianfalleiro\SlimCLIRunner::class);
+$container = $app->getContainer();
+$app->add(new \adrianfalleiro\SlimCLIRunner($container));
 ```
 
 ## Define, Register and run your tasks
