@@ -2,49 +2,54 @@
 
 namespace adrianfalleiro;
 
-use \Psr\Container\ContainerInterface;
+use DI\Container;
+
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Server\RequestHandlerInterface;
+use Slim\Psr7\Response;
+
 use \RuntimeException;
 use \ReflectionClass;
 use \ReflectionMethod;
 use \Exception;
 
 /**
- * Slim PHP 3 CLI task runner
+ * Slim 4 PHP CLI task runner
  *
  * @package SlimCLIRunner
  * @author  Adrian Falleiro <adrian@falleiro.com>
  * @license MIT http://www.opensource.org/licenses/mit-license.php
  */
-class SlimCLIRunner
+class SlimCLIRunner implements MiddlewareInterface
 {
 
     /*
-     * @var \Psr\Container\ContainerInterface
+     * @var \DI\Container
      */
     protected $container;
 
     /**
      * Constructor
-     * @param ContainerInterface $container
+     * @param Container $container
      */
-    public function __construct($container)
+    public function __construct(Container $container)
     {
         $this->container = $container;
     }
 
     /**
      * Called when the class is invoked
-     * @param $request
-     * @param $response
-     * @param $next
      */
-    public function __invoke($request, $response, $next)
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         if (PHP_SAPI !== 'cli') {
-            return $next($request, $response);
+            return $handler->handle($request);
         }
 
         global $argv;
+        $response = new Response();
 
         if (count($argv) > 1) {
             $command = $argv[1];
@@ -92,7 +97,12 @@ class SlimCLIRunner
                     $task = $task_class->newInstanceWithoutConstructor();
                 }
 
+                ob_start();
                 $cli_response = $task->command($args);
+                if (empty($cli_response)) {
+                    $cli_response = ob_get_contents();
+                }
+                ob_end_clean();
                 $response->getBody()->write($cli_response);
             } else {
                 $response->getBody()->write("Command not found");
