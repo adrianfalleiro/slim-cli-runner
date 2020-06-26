@@ -8,6 +8,12 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpNotFoundException;
 
+/**
+ * Class CliAction
+ *
+ * @author  Adrian Falleiro <adrian@falleiro.com>
+ * @license MIT http://www.opensource.org/licenses/mit-license.php
+ */
 abstract class CliAction
 {
 
@@ -53,7 +59,7 @@ abstract class CliAction
     abstract protected function action(): Response;
 
     /**
-     * @param  string $name
+     * @param  int $index
      * @return mixed
      * @throws CliException
      */
@@ -76,7 +82,7 @@ abstract class CliAction
     }
 
     /**
-     * @param string $payload
+     * @param string $message
      * @return Response
      */
     protected function respond(string $message = ''): Response
