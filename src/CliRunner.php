@@ -15,9 +15,8 @@ use ReflectionMethod;
 use Exception;
 
 /**
- * Slim 4 PHP CLI task runner
- *
- * @package SlimCliRunner
+ * Class CliRunner
+ * 
  * @author  Adrian Falleiro <adrian@falleiro.com>
  * @license MIT http://www.opensource.org/licenses/mit-license.php
  */
@@ -25,12 +24,13 @@ class CliRunner implements MiddlewareInterface
 {
 
     /*
-     * @var \DI\Container
+     * @var DI\Container
      */
     protected $container;
 
     /**
      * Constructor
+     * 
      * @param Container $container
      */
     public function __construct(Container $container)
@@ -39,7 +39,10 @@ class CliRunner implements MiddlewareInterface
     }
 
     /**
-     * Called when the class is invoked
+     * Called when the middleware is invoked
+     * 
+     * @param ServerRequestInterface $request
+     * @param RequestHandlerInterface $handler
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
