@@ -16,7 +16,8 @@ return function (ContainerBuilder $containerBuilder) {
             ],
         ],
         'commands' => [
-            'Test' => \App\Application\Actions\Cli\ExampleCliAction::class
+            'Example' => \App\Application\Actions\Cli\ExampleCliAction::class,
+            'ExampleWithoutConstructor' => \App\Application\Actions\Cli\ExampleWithoutConstructorCliAction::class
         ]
     ]);
 };
