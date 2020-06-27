@@ -91,7 +91,7 @@ _composer.json_
     },
     "scripts": {
         /*...*/
-        "cli": "php public/index.php SampleTask arg1 arg2 arg3"
+        "cli": "php public/index.php"
     }
 }
 ```
