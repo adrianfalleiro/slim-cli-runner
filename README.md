@@ -10,6 +10,8 @@ Create and run command line tasks for the Slim PHP micro-framework
 composer require adrianfalleiro/slim-cli-runner ^3.0
 ```
 
+*For Slim 3 support install version 2.6 or lower*
+
 **Register Middleware**
 
 Register the middleware in `middleware.php`
