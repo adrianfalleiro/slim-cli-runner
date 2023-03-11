@@ -16,7 +16,7 @@ use Exception;
 
 /**
  * Class CliRunner
- * 
+ *
  * @author  Adrian Falleiro <adrian@falleiro.com>
  * @license MIT http://www.opensource.org/licenses/mit-license.php
  */
@@ -30,7 +30,7 @@ class CliRunner implements MiddlewareInterface
 
     /**
      * Constructor
-     * 
+     *
      * @param Container $container
      */
     public function __construct(Container $container)
@@ -40,7 +40,7 @@ class CliRunner implements MiddlewareInterface
 
     /**
      * Called when the middleware is invoked
-     * 
+     *
      * @param ServerRequestInterface $request
      * @param RequestHandlerInterface $handler
      */
