@@ -46,7 +46,7 @@ class CliRunner implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        if (PHP_SAPI !== 'cli') {
+        if (PHP_SAPI !== 'cli' || defined('PHPUNIT_COMPOSER_INSTALL')) {
             return $handler->handle($request);
         }
 
